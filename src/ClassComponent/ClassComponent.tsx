@@ -27,7 +27,7 @@ class ClassComponent extends Component {
 
     render() {
 
-        console.log("ClassComponent rendered")
+        console.log("ClassComponent rendered", this.state.classState)
 
         const { ccCount } = this.state.classState
         const { updateState } = stateService
