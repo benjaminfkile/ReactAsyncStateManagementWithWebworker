@@ -1,46 +1,38 @@
-# Getting Started with Create React App
+# React State Management System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This document outlines the architecture and usage of a custom state management system developed for a React application. This system uses a combination of React states, a web worker, and a subscription model to manage and propagate state updates efficiently across components.
 
-## Available Scripts
+## System Overview
 
-In the project directory, you can run:
+The state management system consists of the following components:
 
-### `npm start`
+- **State Modules**: Defines separate state objects for different parts of the application.
+- **Mutate Function**: Handles immutable state updates.
+- **StateWebWorker and Listener**: Offloads processing from the main thread using web workers.
+- **State Service**: Manages subscriptions and state updates, and communicates with the web worker.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Setup
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### State Modules
 
-### `npm test`
+State objects for different components are set up in separate files:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- `appState`: Manages state related to the overall application.
+- `componentAState`: Manages state specific to ComponentA.
+- `componentBState`: Manages state specific to ComponentB.
 
-### `npm run build`
+Each state object is defined and exported from its respective module.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Mutate Function
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+The `mutate` function is responsible for creating new state objects based on provided changes, ensuring state immutability:
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+```typescript
+const mutate = (state: any, keys: Array<{ key: string, value?: any }>) => {
+    let newState = {...state};
+    keys.forEach(({ key, value }) => {
+        newState[key] = value !== undefined ? value : !newState[key];
+    });
+    return newState;
+};
+# ReactAsyncStateManagementWithWebworker
