@@ -1,8 +1,8 @@
 // stateService.ts
-import mutate from './Mutate'
-import StateWebWorker from './StateWebWorker'
-import StateWebWorkerListener from './StateWebWorkerListener'
-import state from './State'
+import mutate from "./Mutate"
+import StateWebWorker from "./StateWebWorker"
+import StateWebWorkerListener from "./StateWebWorkerListener"
+import state from "./State"
 
 
 // Store for all component subscriptions to state changes

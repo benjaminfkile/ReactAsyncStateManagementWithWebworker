@@ -1,15 +1,10 @@
 // Imports states from different components to combine them into a single state object.
-
-import appState from "../App/AppState"
-import classComponentState from "../ClassComponent/ClassComponentState"
-import componetAState from "../ComponentA/ComponetAState"
-import componentBState from "../ComponentB/ComponetBState"
+import appState from "../app/AppState"
+import onlinePlayersState from "../app/components/online_players/OnlinePlayersState"
 
 const state = {
     appState: appState,
-    componetAState: componetAState,
-    componentBState: componentBState,
-    classComponentState: classComponentState
+    onlinePlayersState: onlinePlayersState
 }
 
 export default state
